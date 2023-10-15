@@ -22,52 +22,46 @@
           <div class="card-body">
             <h5 class="card-title">Search</h5>
 
-            <!-- Horizontal Form -->
-            <form>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-1 col-form-label">Shop</label>
-                <div class="col-sm-11">
-                  <input type="text" class="form-control" id="inputText">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-1 col-form-label">Product</label>
-                <div class="col-sm-5">
-                  <input type="text" class="form-control" id="inputText">
-                </div>
-                <label for="inputEmail3" class="col-sm-1 col-form-label">Category</label>
-                <div class="col-md-5">
-                  <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-1 col-form-label">District</label>
-                <div class="col-sm-5">
-                  <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <label for="inputEmail3" class="col-sm-1 col-form-label">Sub-district</label>
-                <div class="col-sm-5">
-                  <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-              </div>
-              <!-- <div class="row mb-3 text-center">
-                <div class="col-sm-1">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                <div class="col-sm-1">
-                  <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
-              </div> -->
-            </form><!-- End Horizontal Form -->
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3">
+                          <div class="col-md-12">
+                              <label for="inputName5" class="form-label">Product</label>
+                              <input type="text" class="form-control" id="inputName5">
+                          </div>
+                          <div class="col-md-6">
+                              <label for="inputEmail5" class="form-label">Shop Name</label>
+                              <input type="email" class="form-control" id="inputEmail5">
+                          </div>
+                          <div class="col-md-6">
+                              <label for="inputPassword5" class="form-label">Category</label>
+                              <select id="inputState" class="form-select">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                              </select>
+                          </div>
+                          <div class="col-md-6">
+                              <label for="inputCity" class="form-label">District</label>
+                              <select id="inputState" class="form-select">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                              </select>
+                          </div>
+                          <div class="col-md-6">
+                              <label for="inputCity" class="form-label">Sub-district</label>
+                              <select id="inputState" class="form-select">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                              </select>
+                          </div>
+                          <!-- <div class="row mb-3 text-center">
+                            <div class="col-sm-1">
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class="col-sm-1">
+                              <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                          </div> -->
+                      </form><!-- End Multi Columns Form -->
 
           </div>
         </div>
@@ -91,11 +85,11 @@
             <table class="table datatable">
               <thead>
                 <tr>
-                  <th scope="col">Name</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Shop</th>
+                  <th scope="col">Category</th>
                   <th scope="col">District</th>
                   <th scope="col">Sub-district</th>
-                  <th scope="col">Date Time</th>
-                  <th scope="col">Nature</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -106,7 +100,7 @@
                   <td>Designer</td>
                   <td>28</td>
                   <td>2016-05-25</td>
-                  <td></td>
+                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td> 
                 </tr>
                 <tr>
                   <th scope="row">2</th>
@@ -114,7 +108,7 @@
                   <td>Developer</td>
                   <td>35</td>
                   <td>2014-12-05</td>
-                  <td></td>
+                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
                 </tr>
                 <tr>
                   <th scope="row">3</th>
@@ -122,7 +116,7 @@
                   <td>Finance</td>
                   <td>45</td>
                   <td>2011-08-12</td>
-                  <td></td>
+                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
                 </tr>
                 <tr>
                   <th scope="row">4</th>
@@ -130,7 +124,7 @@
                   <td>HR</td>
                   <td>34</td>
                   <td>2012-06-11</td>
-                  <td></td>
+                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
                 </tr>
                 <tr>
                   <th scope="row">5</th>
@@ -138,7 +132,7 @@
                   <td>Dynamic Division Officer</td>
                   <td>47</td>
                   <td>2011-04-19</td>
-                  <td></td>
+                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
                 </tr>
               </tbody>
             </table>
