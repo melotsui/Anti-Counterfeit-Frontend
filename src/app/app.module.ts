@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +16,8 @@ import { IndexComponent } from './index/index.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ReportFormComponent } from './report-form/report-form.component';
 import { ReportHistoryComponent } from './report-history/report-history.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MsgBoxComponent } from './msg-box/msg-box.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +31,17 @@ import { ReportHistoryComponent } from './report-history/report-history.componen
     IndexComponent,
     NotFoundComponent,
     ReportFormComponent,
-    ReportHistoryComponent
+    ReportHistoryComponent,
+    MsgBoxComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule, 
+    MatButtonModule, 
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
