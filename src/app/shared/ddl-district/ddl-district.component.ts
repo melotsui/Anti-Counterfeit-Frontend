@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -21,45 +21,26 @@ interface District {
 })
 export class DdlDistrictComponent implements ControlValueAccessor, OnInit {
   districts: District[] = [];
-  selectedDistrict: string = '';
+  selectedValue: string = '';
+  @Output() districtSelected: EventEmitter<number> = new EventEmitter<number>();
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.fetchDistricts();
   }
 
   fetchDistricts() {
-    this.httpClient.get<any>('http://127.0.0.1:8000/api/districts').subscribe(
-      (response) => {
-        if (response.code === 200) {
-          this.districts = response.data.districts;
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  handleSelectChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const value = target.value;
-    this.updateValue(value);
-  }
-
-  updateValue(value: string) {
-    this.selectedDistrict = value;
-    this.onChange(value);
-    this.onTouched();
+    this.http.get<any>('http://127.0.0.1:8000/api/districts')
+      .subscribe(data => {
+        this.districts = data.data.districts;
+      });
   }
 
   writeValue(value: any): void {
-    if (value !== undefined) {
-      this.selectedDistrict = value;
-    }
+    this.selectedValue = value;
   }
 
   registerOnChange(fn: any): void {
@@ -71,6 +52,19 @@ export class DdlDistrictComponent implements ControlValueAccessor, OnInit {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    // Optional: Implement this method if you need to disable the component dynamically
+    // Implement this method if needed
+  }
+
+  handleSelectChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value;
+    this.updateValue(value);
+    this.districtSelected.emit(parseInt(value)); // Emit the district ID
+  }
+
+  updateValue(value: string) {
+    this.selectedValue = value;
+    this.onChange(value);
+    this.onTouched();
   }
 }

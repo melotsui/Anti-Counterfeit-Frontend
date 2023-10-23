@@ -40,13 +40,18 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <app-ddl-category></app-ddl-category>
+                                <app-ddl-category (categorySelected)="form.controls['category'].setValue($event)"
+                                    formControlName="category"></app-ddl-category>
                             </div>
                             <div class="col-md-6">
-                                <app-ddl-district></app-ddl-district>
+                                <app-ddl-district (districtSelected)="onDistrictSelected($event)"
+                                    formControlName="district"></app-ddl-district>
                             </div>
                             <div class="col-md-6">
-                                <app-ddl-sub-district></app-ddl-sub-district>
+                                <app-ddl-sub-district
+                                    (subDistrictSelected)="form.controls['subDistrict'].setValue($event)"
+                                    [districtId]="selectedDistrictId"
+                                    formControlName="subDistrict"></app-ddl-sub-district>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputDate" class="col-sm-2 col-form-label">Date</label>

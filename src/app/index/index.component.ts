@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class IndexComponent implements OnInit {
   form: FormGroup;
+  selectedDistrictId: number = 0;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -29,4 +30,10 @@ export class IndexComponent implements OnInit {
       // Handle invalid form
     }
   }
+
+  onDistrictSelected(districtId: number) {
+    this.selectedDistrictId = districtId;
+    this.form.controls['subDistrict'].setValue(''); // Reset the sub-district value
+  }
+
 }

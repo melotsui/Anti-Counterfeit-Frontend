@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -21,8 +21,9 @@ interface SubDistrict {
   ]
 })
 export class DdlSubDistrictComponent implements ControlValueAccessor, OnInit {
-  selectedValue: string = '';
+  @Input() districtId: number = 0; // Receive the district ID as an input
   subDistricts: SubDistrict[] = [];
+  selectedValue: string = '';
   onChange: any = () => {};
   onTouched: any = () => {};
 
@@ -32,10 +33,18 @@ export class DdlSubDistrictComponent implements ControlValueAccessor, OnInit {
     this.fetchSubDistricts();
   }
 
+  ngOnChanges() {
+    if (this.districtId) {
+      this.fetchSubDistricts();
+    }
+  }
+
   fetchSubDistricts() {
-    this.http.get<any>('http://127.0.0.1:8000/api/sub-districts')
+    const apiUrl = `http://127.0.0.1:8000/api/sub-districts/getSubDistrictsByDistrictId/${this.districtId}`;
+    this.http.get<any>(apiUrl)
       .subscribe(data => {
         this.subDistricts = data.data.sub_districts;
+        this.selectedValue = ''; // Reset the selected sub-district
       });
   }
 

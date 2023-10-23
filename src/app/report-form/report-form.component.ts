@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CommonService } from 'src/app/@service/common.service';
@@ -11,8 +12,9 @@ export class ReportFormComponent implements OnInit {
   @Output() callParent = new EventEmitter();
   form: FormGroup;
   images: File[] = [];
+  selectedDistrictId: number = 0;
 
-  constructor(private formBuilder: FormBuilder, private commonService: CommonService) {
+  constructor(private formBuilder: FormBuilder, private commonService: CommonService, private httpClient: HttpClient) {
     this.form = this.formBuilder.group({
       product: ['', Validators.required],
       shopName: ['', Validators.required],
@@ -28,6 +30,11 @@ export class ReportFormComponent implements OnInit {
       description: ['']
     });
 
+  }
+
+  onDistrictSelected(districtId: number) {
+    this.selectedDistrictId = districtId;
+    this.form.controls['subDistrict'].setValue(''); // Reset the sub-district value
   }
 
   ngOnInit() {
@@ -59,34 +66,18 @@ export class ReportFormComponent implements OnInit {
   }
 
   onSubmit() {
-    /*
-    // Handle form submission
-    const formData = new FormData();
+    const formData = this.form.value;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    // Append form data
-    formData.append('product', this.form.get('product')?.value);
-    formData.append('shopName', this.form.get('shopName')?.value);
-    // Append other form fields
-    
-    // Append images
-    for (let image of this.images) {
-      formData.append('images', image);
-    }
+    this.httpClient.post<any>('http://127.0.0.1:8000/api/reports', JSON.stringify(formData), { headers })
+      .subscribe(data => {
+        console.log('Report created successfully:', data);
+        // Handle the success response
+      }, error => {
+        console.error('Error creating report:', error);
+        // Handle the error response
+      });
 
-    // Call API to upload images and submit the form data
-    this.commonService.uploadImages(formData).subscribe(
-      (response) => {
-        // Handle success response
-        console.log('Images uploaded successfully');
-        // Submit the remaining form data to the backend
-        this.submitFormDataToBackend();
-      },
-      (error) => {
-        // Handle error response
-        console.error('Error uploading images', error);
-      }
-    );
-    */
   }
 
 }

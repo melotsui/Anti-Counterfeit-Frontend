@@ -45,7 +45,7 @@
                 </div> -->
               </div>
               <div class="col-md-6">
-                <app-ddl-district (districtSelected)="form.controls['district'].setValue($event)"
+                <app-ddl-district (districtSelected)="onDistrictSelected($event)"
                   formControlName="district"></app-ddl-district>
                 <!-- <div *ngIf="form.controls['district'].invalid && form.controls['district'].touched" class="text-danger">
                   District is required.
@@ -53,7 +53,7 @@
               </div>
               <div class="col-md-6">
                 <app-ddl-sub-district (subDistrictSelected)="form.controls['subDistrict'].setValue($event)"
-                  formControlName="subDistrict"></app-ddl-sub-district>
+                  [districtId]="selectedDistrictId" formControlName="subDistrict"></app-ddl-sub-district>
                 <!-- <div *ngIf="form.controls['subDistrict'].invalid && form.controls['subDistrict'].touched"
                   class="text-danger">
                   Sub-District is required.
