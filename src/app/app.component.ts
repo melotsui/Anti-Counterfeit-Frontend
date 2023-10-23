@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/@service/common.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MsgBoxComponent } from './msg-box/msg-box.component';
-
+import { CarouselModalComponent } from './carousel-modal/carousel-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,8 @@ import { MsgBoxComponent } from './msg-box/msg-box.component';
 export class AppComponent implements OnInit {
   title = 'Anti-Counterfeit-Frontend';
   dialogConfig = new MatDialogConfig();
-  modalDialog: MatDialogRef<MsgBoxComponent, any> | undefined;
+  msgDialog: MatDialogRef<MsgBoxComponent, any> | undefined;
+  carouselDialog: MatDialogRef<CarouselModalComponent, any> | undefined;
   matDialog: MatDialog;
 
   get toggleSidebar() {
@@ -22,14 +23,35 @@ export class AppComponent implements OnInit {
   constructor(private commonService: CommonService, matDialog: MatDialog) {
     this.matDialog = matDialog;
   }
-  
+
   ngOnInit(): void {
     this.commonService.toggleSideBar_Click();
+    this.commonService.openMsgBoxEvent.subscribe((event: any) => {
+      this.openMsgBox(event);
+    });
+    this.commonService.openCarouselEvent.subscribe((event: any) => {
+      this.openCarousel(event);
+    });
   }
 
-  openMsgBox() {
+  openCarousel(event: any) {
+    this.dialogConfig.id = "CarouselModalComponent";
+    this.dialogConfig.width = "60%";
+    const params = {
+      title: event.title,
+      description: event.description,
+    };
+    this.carouselDialog = this.matDialog.open(CarouselModalComponent, { ...this.dialogConfig, data: params });
+  }
+
+  openMsgBox(event: any) {
+    console.log(event);
     this.dialogConfig.id = "MsgBoxComponent";
-    this.dialogConfig.width = "650px";
-    this.modalDialog = this.matDialog.open(MsgBoxComponent, this.dialogConfig);
+    this.dialogConfig.width = "400px";
+    const params = {
+      title: event.title,
+      description: event.description,
+    };
+    this.msgDialog = this.matDialog.open(MsgBoxComponent, { ...this.dialogConfig, data: params });
   }
 }

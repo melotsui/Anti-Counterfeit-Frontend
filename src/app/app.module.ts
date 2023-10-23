@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,13 @@ import { ReportFormComponent } from './report-form/report-form.component';
 import { ReportHistoryComponent } from './report-history/report-history.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MsgBoxComponent } from './msg-box/msg-box.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ReportDetailComponent } from './report-detail/report-detail.component';
+import { CarouselModalComponent } from './carousel-modal/carousel-modal.component';
+import { DdlCategoryComponent } from './shared/ddl-category/ddl-category.component';
+import { DdlDistrictComponent } from './shared/ddl-district/ddl-district.component';
+import { DdlSubDistrictComponent } from './shared/ddl-sub-district/ddl-sub-district.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,14 @@ import { MsgBoxComponent } from './msg-box/msg-box.component';
     NotFoundComponent,
     ReportFormComponent,
     ReportHistoryComponent,
-    MsgBoxComponent
+    MsgBoxComponent,
+    EmailVerificationComponent,
+    ResetPasswordComponent,
+    ReportDetailComponent,
+    CarouselModalComponent,
+    DdlCategoryComponent,
+    DdlDistrictComponent,
+    DdlSubDistrictComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +56,12 @@ import { MsgBoxComponent } from './msg-box/msg-box.component';
     AppRoutingModule,
     BrowserAnimationsModule, 
     MatButtonModule, 
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

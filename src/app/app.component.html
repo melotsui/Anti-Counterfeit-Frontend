@@ -1,25 +1,11 @@
 <body [class]="toggleSidebar">
   <div class="ui center aligned basic segment">
 
-
-    <!-- 
-<app-header></app-header>
-<app-sidebar></app-sidebar>   
--->
-
-
     <router-outlet></router-outlet>
-    <!-- 
-<app-footer></app-footer> 
--->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
       <i class="bi bi-arrow-up-short"></i>
     </a>
 
-    <button class="ui green button" (click)="openMsgBox()">
-      Create a New Bus Route
-    </button>
   </div>
-
 </body>

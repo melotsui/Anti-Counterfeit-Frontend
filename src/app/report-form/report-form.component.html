@@ -17,78 +17,84 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Report Form</h5>
-                        <form class="row g-3">
+                        <h5 class="card-title">New Report Form</h5>
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row g-3">
                             <div class="col-md-12">
-                                <label for="inputEmail5" class="form-label">Product</label>
-                                <input type="text" class="form-control" id="inputName5">
+                                <label for="inputName5" class="form-label">
+                                    Product <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="inputName5" formControlName="product">
+                                <div *ngIf="form.controls['product'].invalid && form.controls['product'].touched"
+                                    class="text-danger">
+                                    Product is required.
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputName5" class="form-label">Shop Name</label>
-                                <input type="email" class="form-control" id="inputEmail5">
+                                <label for="inputEmail5" class="form-label">
+                                    Shop Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="inputEmail5" formControlName="shopName">
+                                <div *ngIf="form.controls['shopName'].invalid && form.controls['shopName'].touched"
+                                    class="text-danger">
+                                    Shop Name is required.
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputPassword5" class="form-label">Category</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
+                                <app-ddl-category></app-ddl-category>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">District</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
+                                <app-ddl-district></app-ddl-district>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputCity" class="form-label">Sub-district</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
+                                <app-ddl-sub-district></app-ddl-sub-district>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" formControlName="date">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                                <input type="time" class="form-control">
+                                <input type="time" class="form-control" formControlName="time">
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Address</label>
-                                <textarea class="form-control"></textarea>
+                                <textarea class="form-control" formControlName="address"></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputNumber" class="col-sm-2 col-form-label">Phone</label>
-                                <input type="number" class="form-control">
+                                <input type="number" class="form-control" formControlName="phone">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputText" class="col-sm-2 col-form-label">Website</label>
-                                <input type="text" class="form-control">
+                                <label for="inputText" class="col-sm-4 col-form-label">Website</label>
+                                <input type="text" class="form-control" formControlName="website">
                             </div>
                             <div class="col-12">
-                                <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <label for="formFile" class="col-sm-2 col-form-label">File Upload</label>
+                                <input class="form-control" type="file" id="formFile" (change)="onFileChange($event)"
+                                    formControlName="fileUpload">
+                            </div>
+                            <div class="col-12">
+                                <div class="uploaded-images">
+                                    <div *ngFor="let image of images; let i = index" class="uploaded-image">
+                                        <img [src]="getImageUrl(image)" alt="Uploaded Image">
+                                        <div class="remove-image">
+                                            <button type="button" class="btn btn-link" (click)="removeImage(i)">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
-                                <textarea class="form-control" style="height: 100px"></textarea>
+                                <textarea class="form-control" style="height: 100px"
+                                    formControlName="description"></textarea>
                             </div>
-                            <!-- <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                        Check me out
-                                    </label>
-                                </div>
-                            </div> -->
-                            <div class="col-md-1 text-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                            <div class="col-md-1 text-center">
-                                <button type="reset" class="btn btn-secondary">Clear</button>
+                            <div class="col-md-12 text-left">
+                                <button type="submit" class="btn btn-primary" [disabled]="form.invalid"
+                                    (click)="openMsgBox('Submit Report', 'Are you sure you want to XXX?')"
+                                    style="margin-right: 10px;">Submit</button>
+                                <button type="reset" class="btn btn-secondary" (click)="form.reset()">Clear</button>
                             </div>
                         </form>
 

@@ -1,0 +1,5 @@
+<label for="inputCity" class="form-label">Sub-district</label>
+<select id="inputState" class="form-select" (change)="handleSelectChange($event)">
+  <option selected>Choose...</option>
+  <option *ngFor="let subDistrict of subDistricts" [value]="subDistrict.sub_district_id">{{ subDistrict.sub_district_name }}</option>
+</select>
