@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CommonService } from '../@service/common.service';
 
 @Component({
   selector: 'app-index',
@@ -10,7 +11,7 @@ export class IndexComponent implements OnInit {
   form: FormGroup;
   selectedDistrictId: number = 0;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private commonService: CommonService) {
     this.form = this.formBuilder.group({
       product: [''],
       shopName: [''],
@@ -20,15 +21,22 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit() {
     if (this.form.valid) {
       // Form submission logic
       console.log(this.form.value);
+      console.log('checkLogin', this.commonService.checkLogin());
+      // console.log(this.commonService.me());
     } else {
       // Handle invalid form
     }
+  }
+
+  me() {
+    console.log('this.commonService.isLogin', this.commonService.isLogin);
+    console.log('this.commonService.userInfo', this.commonService.userInfo);
   }
 
   onDistrictSelected(districtId: number) {
