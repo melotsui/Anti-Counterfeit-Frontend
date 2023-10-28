@@ -23,6 +23,10 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/login']);
   }
 
+  logout(){
+    this.commonService.logout();
+  }
+
   toggleSideBar_Click() {
     this.commonService.toggleSideBar_Click();
   }

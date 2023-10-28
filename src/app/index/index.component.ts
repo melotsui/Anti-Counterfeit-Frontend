@@ -14,7 +14,7 @@ export class IndexComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private commonService: CommonService) {
     this.form = this.formBuilder.group({
       product: [''],
-      shopName: [''],
+      shop: [''],
       category: [''],
       district: [''],
       subDistrict: ['']
@@ -32,11 +32,6 @@ export class IndexComponent implements OnInit {
     } else {
       // Handle invalid form
     }
-  }
-
-  me() {
-    console.log('this.commonService.isLogin', this.commonService.isLogin);
-    console.log('this.commonService.userInfo', this.commonService.userInfo);
   }
 
   onDistrictSelected(districtId: number) {
