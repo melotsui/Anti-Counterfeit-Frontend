@@ -96,8 +96,11 @@ export class CommonService implements OnInit {
   }
 
   logout() {
+    console.log('logout');
+    localStorage.setItem('accessToken', "");
     localStorage.setItem('islogin', "0");
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
+    location.reload();
   }
 
   // submitForm(formData: any) {

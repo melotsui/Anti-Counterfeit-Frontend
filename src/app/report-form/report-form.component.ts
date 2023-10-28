@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CommonService } from 'src/app/@service/common.service';
 import { Observable, throwError, of } from 'rxjs';
@@ -21,9 +21,9 @@ export class ReportFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       product: ['', Validators.required],
       shop: ['', Validators.required],
-      category: [''],
-      district: [''],
-      subDistrict: [''],
+      category_id: [''],
+      district_id: [''],
+      sub_district_id: [''],
       date: [''],
       time: [''],
       address: [''],
@@ -37,7 +37,7 @@ export class ReportFormComponent implements OnInit {
 
   onDistrictSelected(districtId: number) {
     this.selectedDistrictId = districtId;
-    this.form.controls['subDistrict'].setValue(''); // Reset the sub-district value
+    this.form.controls['sub_district_id'].setValue(''); // Reset the sub-district value
   }
 
   ngOnInit() {
@@ -85,73 +85,55 @@ export class ReportFormComponent implements OnInit {
     //   }
     // );
 
-    // const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
 
-    // const headers = new HttpHeaders({
-    //   Authorization: `Bearer ${accessToken}`,
-    //   'Content-Type': 'application/json'
-    // });
-
-    // const formData = this.form.value;
-    // this.httpClient.post<any>('http://127.0.0.1:8000/api/reports', JSON.stringify(formData), { headers })
-    //   .subscribe(data => {
-    //     if (data.code == 200) {
-    //       console.log('Report created successfully:', data);
-
-    //     } else {
-    //       console.error('Error creating report:', data.message);
-    //       alert(data.message);
-    //     }
-    //     // Handle the success response
-    //   }, error => {
-    //     console.error('Error creating report:', error);
-    //     alert(error.message);
-    //   });
-    console.log(this.images);
-    this.images.forEach((image) => {
-      this.uploadImage(image);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
     });
-  }
 
-  uploadImage(image: File) {
-    return new Observable((observer) => {
-      const formData = new FormData();
-      formData.append('report_id', '1');
-      formData.append('file', image);
-  
-      const uploadUrl = 'http://127.0.0.1:8000/api/reports/uploadFile';
-  
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', uploadUrl, true);
-  
-      xhr.upload.addEventListener('progress', (event: ProgressEvent) => {
-        if (event.lengthComputable) {
-          const progress = Math.round((event.loaded / event.total) * 100);
-          // You can emit progress updates if needed
-          // observer.next(progress);
-        }
-      });
-  
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          // Upload successful
-          const response = xhr.response;
-          observer.next(response);
-          observer.complete();
+    const formData = this.form.value;
+    console.warn('formData', formData);
+    this.httpClient.post<any>('http://127.0.0.1:8000/api/reports', JSON.stringify(formData), { headers })
+      .subscribe(response => {
+        if (response.code == 200) {
+          this.images.forEach((image) => {
+            this.uploadImage(image, response.data.report.report_id).subscribe(
+              (response) => {
+                console.log('Image upload successful:', response);
+              },
+              (error) => {
+                console.error('Image upload failed:', error);
+              }
+            );
+          });
         } else {
-          // Upload failed
-          observer.error('Image upload failed.');
+          console.error('Error creating report:', response.message);
+          alert(response.message);
         }
-      };
-  
-      xhr.onerror = () => {
-        // Upload error
-        observer.error('Image upload failed.');
-      };
-  
-      xhr.send(formData);
-    });
+        // Handle the success response
+      }, error => {
+        console.error('Error creating report:', error);
+        alert(error.message);
+      });
+    console.log(this.images);
+
+    alert('success');
   }
-  
-  
+
+  uploadImage(image: File, report_id: number) {
+    const accessToken = localStorage.getItem('accessToken');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`
+    });
+    const url = 'http://127.0.0.1:8000/api/reports/uploadFile';
+    const formData = new FormData();
+    formData.append('report_id', `${report_id}`);
+    formData.append('media', image);
+
+    return this.httpClient.post(url, formData, { headers });
+  }
+
+
 }

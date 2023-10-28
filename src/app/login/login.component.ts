@@ -27,11 +27,13 @@ export class LoginComponent {
 
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('islogin', "1");
+        localStorage.setItem('userName', response.data.user.name);
 
         this.router.navigate(['/']);
       },
       (error) => {
         console.error('Login error', error);
+        alert(`Login error ${{ error }}`);
       }
     );
   }

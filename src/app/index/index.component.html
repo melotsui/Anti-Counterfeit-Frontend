@@ -1,4 +1,4 @@
-<app-header ></app-header>
+<app-header></app-header>
 <!-- <app-sidebar></app-sidebar> -->
 
 <main id="main" class="main">
@@ -38,22 +38,22 @@
                 </div> -->
               </div>
               <div class="col-md-6">
-                <app-ddl-category (categorySelected)="form.controls['category'].setValue($event)"
-                  formControlName="category"></app-ddl-category>
+                <app-ddl-category (categorySelected)="form.controls['category_id'].setValue($event)"
+                  formControlName="category_id"></app-ddl-category>
                 <!-- <div *ngIf="form.controls['category'].invalid && form.controls['category'].touched" class="text-danger">
                   Category is required.
                 </div> -->
               </div>
               <div class="col-md-6">
                 <app-ddl-district (districtSelected)="onDistrictSelected($event)"
-                  formControlName="district"></app-ddl-district>
+                  formControlName="district_id"></app-ddl-district>
                 <!-- <div *ngIf="form.controls['district'].invalid && form.controls['district'].touched" class="text-danger">
                   District is required.
                 </div> -->
               </div>
               <div class="col-md-6">
-                <app-ddl-sub-district (subDistrictSelected)="form.controls['subDistrict'].setValue($event)"
-                  [districtId]="selectedDistrictId" formControlName="subDistrict"></app-ddl-sub-district>
+                <app-ddl-sub-district (subDistrictSelected)="form.controls['sub_district_id'].setValue($event)"
+                  [districtId]="selectedDistrictId" formControlName="sub_district_id"></app-ddl-sub-district>
                 <!-- <div *ngIf="form.controls['subDistrict'].invalid && form.controls['subDistrict'].touched"
                   class="text-danger">
                   Sub-District is required.
@@ -61,7 +61,7 @@
               </div>
               <div class="col-md-6">
                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Search</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="reset" class="btn btn-secondary" (click)="reset()">Reset</button>
                 <!-- <button  class="btn btn-secondary" (click)="me()">btn</button> -->
               </div>
             </form>
@@ -80,9 +80,9 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Reported List</h5>
-            <p>Add lightweight datatables to your project with using the <a
+            <!-- <p>Add lightweight datatables to your project with using the <a
                 href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library.
-              Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
+              Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
 
             <!-- Table with stripped rows -->
             <table class="table datatable">
@@ -93,49 +93,17 @@
                   <th scope="col">Category</th>
                   <th scope="col">District</th>
                   <th scope="col">Sub-district</th>
-                  <th scope="col"></th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">Prod 1</th>
-                  <td>Shop 1</td>
-                  <td>Home Appliances</td>
-                  <td>Kowloon</td>
-                  <td>Wong Tai Sin</td>
-                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">Prod 2</th>
-                  <td>Shop 2</td>
-                  <td>Household Products</td>
-                  <td>Kowloon</td>
-                  <td>Wong Tai Sin</td>
-                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">Prod 3</th>
-                  <td>Shop 3</td>
-                  <td>Health and Beauty</td>
-                  <td>Kowloon</td>
-                  <td>Wong Tai Sin</td>
-                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">Prod 4</th>
-                  <td>Shop 4</td>
-                  <td>Electronics and Audio and Video</td>
-                  <td>Kowloon</td>
-                  <td>Wong Tai Sin</td>
-                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
-                </tr>
-                <tr>
-                  <th scope="row">Prod 5</th>
-                  <td>Shop 5</td>
-                  <td>Childrens Products</td>
-                  <td>Kowloon</td>
-                  <td>Wong Tai Sin</td>
-                  <td><a href="#"><i class="bi bi-eye-fill"></i></a></td>
+                <tr *ngFor="let report of reports">
+                  <td>{{ report.product }}</td>
+                  <td>{{ report.shop }}</td>
+                  <td>{{ report.category_name }}</td>
+                  <td>{{ report.district_name }}</td>
+                  <td>{{ report.sub_district_name }}</td>
+                  <td style="text-align: center;"><a href="#"><i class="bi bi-eye-fill"></i></a></td>
                 </tr>
               </tbody>
             </table>

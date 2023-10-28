@@ -1,5 +1,5 @@
 <label for="inputPassword5" class="form-label">Category</label>
 <select id="inputState" class="form-select" [value]="selectedCategory" (change)="handleSelectChange($event)">
-  <option value="" selected>Choose...</option>
+  <option value="0" selected>Choose...</option>
   <option *ngFor="let category of categories" [value]="category.category_id">{{ category.category_name }}</option>
 </select>

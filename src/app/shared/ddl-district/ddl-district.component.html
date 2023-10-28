@@ -1,5 +1,5 @@
 <label for="inputCity" class="form-label">District</label>
 <select id="inputState" class="form-select" (change)="handleSelectChange($event)">
-  <option selected>Choose...</option>
+  <option selected value="0">Choose...</option>
   <option *ngFor="let district of districts" [value]="district.district_id">{{ district.district_name }}</option>
 </select>
