@@ -9,10 +9,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class CarouselModalComponent {
   dialogRef: MatDialogRef<CarouselModalComponent>;
   data: any;
+  files: any[] = [];
 
   constructor(dialogRef: MatDialogRef<CarouselModalComponent>, @Inject(MAT_DIALOG_DATA) data: any){
     this.dialogRef = dialogRef;
     this.data = data;
+    this.files = data.files;
+    console.log(data);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -25,6 +25,7 @@ export class DdlDistrictComponent implements ControlValueAccessor, OnInit {
   @Output() districtSelected: EventEmitter<number> = new EventEmitter<number>();
   onChange: any = () => {};
   onTouched: any = () => {};
+  @Input() inputValue: number = 0;
 
   constructor(private http: HttpClient) {}
 

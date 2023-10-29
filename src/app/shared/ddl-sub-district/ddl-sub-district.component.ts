@@ -26,6 +26,7 @@ export class DdlSubDistrictComponent implements ControlValueAccessor, OnInit {
   selectedValue: string = '';
   onChange: any = () => {};
   onTouched: any = () => {};
+  @Input() inputValue: number = 0;
 
   constructor(private http: HttpClient) {}
 

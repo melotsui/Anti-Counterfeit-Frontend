@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -24,10 +24,12 @@ export class DdlCategoryComponent implements ControlValueAccessor, OnInit {
   categories: Category[] = [];
   onChange: any = () => { };
   onTouched: any = () => { };
+  @Input() inputValue: number = 0;
 
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
+    console.log('inputValue', this.inputValue);
     this.fetchCategories();
   }
 
@@ -35,6 +37,8 @@ export class DdlCategoryComponent implements ControlValueAccessor, OnInit {
     this.httpClient.get<any>('http://127.0.0.1:8000/api/categories').subscribe(
       (response) => {
         if (response.code === 200) {
+          console.log('response', response);
+          console.log('inputValue', this.inputValue);
           this.categories = response.data.categories;
         }
       },

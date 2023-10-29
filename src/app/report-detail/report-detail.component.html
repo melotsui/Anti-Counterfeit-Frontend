@@ -21,56 +21,56 @@
                         <form class="row g-3">
                             <div class="col-md-12">
                                 <label for="inputEmail5" class="form-label">
-                                    Product 
+                                    Product
                                 </label>
-                                <input type="text" class="form-control" id="inputName5" disabled>
+                                <input type="text" class="form-control" id="inputName5" disabled [value]="report?.product">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputName5" class="form-label">
-                                    Shop Name 
+                                    Shop Name
                                 </label>
-                                <input type="text" class="form-control" id="inputEmail5" value="123" disabled>
+                                <input type="text" class="form-control" id="inputEmail5" disabled [value]="report?.shop">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputPassword5" class="form-label">Category</label>
-                                <input type="text" class="form-control" id="inputName5" disabled>
+                                <input type="text" class="form-control" id="inputName5" disabled [value]="report?.category_name">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCity" class="form-label">District</label>
-                                <input type="text" class="form-control" id="inputName5" disabled>
+                                <input type="text" class="form-control" id="inputName5" disabled [value]="report?.district_name">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputCity" class="form-label">Sub-district</label>
-                                <input type="text" class="form-control" id="inputName5" disabled>
+                                <input type="text" class="form-control" id="inputName5" disabled [value]="report?.sub_district_name">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                                <input type="date" class="form-control" disabled>
+                                <label for="inputDate" class="col-sm-2 col-form-label">Date</label >
+                                <input type="text" class="form-control" disabled [value]="report?.product">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                                <input type="time" class="form-control" disabled>
+                                <input type="text" class="form-control" disabled [value]="report?.product">
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Address</label>
-                                <textarea class="form-control" disabled></textarea>
+                                <textarea class="form-control" disabled [value]="report?.address"></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputNumber" class="col-sm-2 col-form-label">Phone</label>
-                                <input type="number" class="form-control" disabled>
+                                <input type="number" class="form-control" disabled [value]="report?.phone">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputText" class="col-sm-2 col-form-label">Website</label>
-                                <input type="text" class="form-control" disabled>
+                                <input type="text" class="form-control" disabled [value]="report?.website">
                             </div>
                             <div class="col-12">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
-                                <textarea class="form-control" style="height: 100px" disabled></textarea>
+                                <textarea class="form-control" style="height: 100px" disabled [value]="report?.description"></textarea>
                             </div>
                             <div class="col-md-12 text-left">
-                                <button type="reset" class="btn btn-secondary" style="margin-right: 10px;">Back</button>
-                                <button type="submit" class="btn btn-primary"
-                                    (click)="openCarouselBox('Submit Report', 'Are you sure you want to XXX?')">
+                                <button class="btn btn-secondary" style="margin-right: 10px;" (click)="goBack()">Back</button>
+                                <button type="submit" class="btn btn-primary" *ngIf="report?.report_files.length > 0"
+                                    (click)="openCarouselBox('Submit Report', 'Are you sure you want to XXX?', report?.report_files)">
                                     Uploaded Photo
                                 </button>
                             </div>

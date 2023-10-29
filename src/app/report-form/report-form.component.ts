@@ -16,6 +16,7 @@ export class ReportFormComponent implements OnInit {
   form: FormGroup;
   images: File[] = [];
   selectedDistrictId: number = 0;
+isFileUploadDisabled: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private router: Router, private formBuilder: FormBuilder, private commonService: CommonService, private httpClient: HttpClient) {
     this.form = this.formBuilder.group({
@@ -44,20 +45,35 @@ export class ReportFormComponent implements OnInit {
     console.log(this.commonService.refreshToken());
   }
 
+  
+
   onFileChange(event: any) {
     const files: File[] = event.target.files;
 
     for (let file of files) {
-      if (this.images.length < 5) {
+      if (this.images.length < 3) {
         this.images.push(file);
+      } 
+      if (this.images.length >= 3) {
+        this.isFileUploadDisabled = true;
+      } else {
+        this.isFileUploadDisabled = false;
       }
+      console.warn('this.images.length', this.images.length)
     }
-
+    // if (this.images.length < 3) {
+    //   this.isFileUploadDisabled = true;
+    // }
     this.form.get('fileUpload')?.setValue('');
   }
 
   removeImage(index: number) {
     this.images.splice(index, 1);
+    if (this.images.length >= 3) {
+      this.isFileUploadDisabled = true;
+    } else {
+      this.isFileUploadDisabled = false;
+    }
   }
 
   getImageUrl(image: File): string {

@@ -76,7 +76,7 @@
                             <div class="col-12">
                                 <label for="formFile" class="col-sm-2 col-form-label">File Upload</label>
                                 <input class="form-control" type="file" id="formFile" (change)="onFileChange($event)"
-                                    formControlName="fileUpload">
+                                    formControlName="fileUpload" *ngIf="!isFileUploadDisabled">
                             </div>
                             <div class="col-12">
                                 <div class="uploaded-images">

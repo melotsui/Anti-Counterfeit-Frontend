@@ -9,12 +9,14 @@ import { ReportHistoryComponent } from './report-history/report-history.componen
 import { ReportFormComponent } from './report-form/report-form.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'email-verification', component: EmailVerificationComponent },
   { path: '', component: IndexComponent },
   { path: 'report-form', component: ReportFormComponent },
   { path: 'report-detail', component: ReportDetailComponent },

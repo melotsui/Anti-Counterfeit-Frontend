@@ -39,21 +39,21 @@
               </div>
               <div class="col-md-6">
                 <app-ddl-category (categorySelected)="form.controls['category_id'].setValue($event)"
-                  formControlName="category_id"></app-ddl-category>
+                  [inputValue]="category_id" formControlName="category_id"></app-ddl-category>
                 <!-- <div *ngIf="form.controls['category'].invalid && form.controls['category'].touched" class="text-danger">
                   Category is required.
                 </div> -->
               </div>
               <div class="col-md-6">
                 <app-ddl-district (districtSelected)="onDistrictSelected($event)"
-                  formControlName="district_id"></app-ddl-district>
+                [inputValue]="district_id" formControlName="district_id"></app-ddl-district>
                 <!-- <div *ngIf="form.controls['district'].invalid && form.controls['district'].touched" class="text-danger">
                   District is required.
                 </div> -->
               </div>
               <div class="col-md-6">
                 <app-ddl-sub-district (subDistrictSelected)="form.controls['sub_district_id'].setValue($event)"
-                  [districtId]="selectedDistrictId" formControlName="sub_district_id"></app-ddl-sub-district>
+                [inputValue]="sub_district_id" [districtId]="selectedDistrictId" formControlName="sub_district_id"></app-ddl-sub-district>
                 <!-- <div *ngIf="form.controls['subDistrict'].invalid && form.controls['subDistrict'].touched"
                   class="text-danger">
                   Sub-District is required.
@@ -61,7 +61,7 @@
               </div>
               <div class="col-md-6">
                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Search</button>
-                <button type="reset" class="btn btn-secondary" (click)="reset()">Reset</button>
+                <a href="/" class="btn btn-secondary">Reset</a>
                 <!-- <button  class="btn btn-secondary" (click)="me()">btn</button> -->
               </div>
             </form>
@@ -103,7 +103,10 @@
                   <td>{{ report.category_name }}</td>
                   <td>{{ report.district_name }}</td>
                   <td>{{ report.sub_district_name }}</td>
-                  <td style="text-align: center;"><a href="#"><i class="bi bi-eye-fill"></i></a></td>
+                  <td style="text-align: center;">
+                    <a [routerLink]="['/report-detail']" [queryParams]="{ report_id: report.report_id }"><i
+                        class="bi bi-eye-fill"></i></a>
+                  </td>
                 </tr>
               </tbody>
             </table>

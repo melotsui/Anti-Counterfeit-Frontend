@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
     const params = {
       title: event.title,
       description: event.description,
+      files: event.obj,
     };
     this.carouselDialog = this.matDialog.open(CarouselModalComponent, { ...this.dialogConfig, data: params });
   }
