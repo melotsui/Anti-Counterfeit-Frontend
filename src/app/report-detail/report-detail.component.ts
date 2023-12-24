@@ -3,7 +3,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/@service/common.service';
-import { Location } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-detail-form',
@@ -27,6 +27,10 @@ export class ReportDetailComponent implements OnInit {
             console.log(response);
             if (response.code == 200) {
               this.report = response.data.report;
+              const datetime = response.data.report.created_at;
+              const datepipe = new DatePipe('en-US');
+              this.report.date = datepipe.transform(datetime, 'yyyy-MM-dd'); 
+              this.report.time = datepipe.transform(datetime, 'HH:mm:ss');
 
             } else {
               this.router.navigate(['/not-found']);
