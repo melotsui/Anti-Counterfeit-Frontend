@@ -23,6 +23,7 @@ export class CommonService implements OnInit {
       description: description,
       obj: obj
     };
+    console.log("ABABABABABAB", event)
     this.openMsgBoxEvent.emit(event);
   }
 

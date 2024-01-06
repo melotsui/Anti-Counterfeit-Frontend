@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
     const params = {
       title: event.title,
       description: event.description,
+      obj: event.obj
     };
     this.msgDialog = this.matDialog.open(MsgBoxComponent, { ...this.dialogConfig, data: params });
   }

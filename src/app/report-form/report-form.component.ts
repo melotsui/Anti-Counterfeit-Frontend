@@ -16,7 +16,7 @@ export class ReportFormComponent implements OnInit {
   form: FormGroup;
   images: File[] = [];
   selectedDistrictId: number = 0;
-isFileUploadDisabled: boolean = false;
+  isFileUploadDisabled: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private router: Router, private formBuilder: FormBuilder, private commonService: CommonService, private httpClient: HttpClient) {
     this.form = this.formBuilder.group({
@@ -45,7 +45,7 @@ isFileUploadDisabled: boolean = false;
     console.log(this.commonService.refreshToken());
   }
 
-  
+
 
   onFileChange(event: any) {
     const files: File[] = event.target.files;
@@ -53,7 +53,7 @@ isFileUploadDisabled: boolean = false;
     for (let file of files) {
       if (this.images.length < 3) {
         this.images.push(file);
-      } 
+      }
       if (this.images.length >= 3) {
         this.isFileUploadDisabled = true;
       } else {
@@ -80,12 +80,18 @@ isFileUploadDisabled: boolean = false;
     return URL.createObjectURL(image);
   }
 
-  openMsgBox(title: string, description: string, obj: any | null = null) {
+  openMsgBox(title: string, description: string) {
     const formData = this.form.value;
-    // this.commonService.triggerOpenMsgBoxEvent(title, description, formData);
+    const obj = {
+      action: "create_report",
+      formdata: formData,
+      images: this.images
+    }
+    this.commonService.triggerOpenMsgBoxEvent(title, description, obj);
   }
 
   onSubmit() {
+    this.openMsgBox('Submit Report', 'Are you sure you want to create this report?');
     // this.commonService.me().subscribe(
     //   (response) => {
     //     console.log("me", response);
@@ -101,40 +107,42 @@ isFileUploadDisabled: boolean = false;
     //   }
     // );
 
-    const accessToken = localStorage.getItem('accessToken');
+    // const accessToken = localStorage.getItem('accessToken');
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    });
+    // const headers = new HttpHeaders({
+    //   Authorization: `Bearer ${accessToken}`,
+    //   'Content-Type': 'application/json'
+    // });
 
-    const formData = this.form.value;
-    console.warn('formData', formData);
-    this.httpClient.post<any>('http://127.0.0.1:8000/api/reports', JSON.stringify(formData), { headers })
-      .subscribe(response => {
-        if (response.code == 200) {
-          this.images.forEach((image) => {
-            this.uploadImage(image, response.data.report.report_id).subscribe(
-              (response) => {
-                console.log('Image upload successful:', response);
-              },
-              (error) => {
-                console.error('Image upload failed:', error);
-              }
-            );
-          });
-        } else {
-          console.error('Error creating report:', response.message);
-          alert(response.message);
-        }
-        // Handle the success response
-      }, error => {
-        console.error('Error creating report:', error);
-        alert(error.message);
-      });
-    console.log(this.images);
+    // const formData = this.form.value;
+    // console.warn('formData', formData);
+    // this.httpClient.post<any>('http://127.0.0.1:8000/api/reports', JSON.stringify(formData), { headers })
+    //   .subscribe(response => {
+    //     if (response.code == 200) {
+    //       alert(response.message);
+    //       this.images.forEach((image) => {
+    //         this.uploadImage(image, response.data.report.report_id).subscribe(
+    //           (response) => {
+    //             console.log('Image upload successful:', response);
+    //           },
+    //           (error) => {
+    //             console.error('Image upload failed:', error);
+    //           }
+    //         );
+    //       });
+    //     } else if (response.code == 401) {
+    //       this.router.navigate(['/login']);
+    //     } else {
+    //       console.error('Error creating report:', response.message);
+    //       alert(response.message);
+    //     }
+    //     // Handle the success response
+    //   }, error => {
+    //     console.error('Error creating report:', error);
+    //     alert(error.message);
+    //   });
+    // console.log(this.images);
 
-    alert('success');
   }
 
   uploadImage(image: File, report_id: number) {

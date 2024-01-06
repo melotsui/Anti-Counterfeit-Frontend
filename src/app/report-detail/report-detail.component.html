@@ -67,12 +67,14 @@
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
                                 <textarea class="form-control" style="height: 100px" disabled [value]="report?.description"></textarea>
                             </div>
-                            <div class="col-md-12 text-left">
+                            <div class="col-md-6 text-left">
                                 <button class="btn btn-secondary" style="margin-right: 10px;" (click)="goBack()">Back</button>
-                                <button type="submit" class="btn btn-primary" *ngIf="report?.report_files.length > 0"
+                                <button type="submit" class="btn btn-primary" style="margin-right: 10px;" *ngIf="report?.report_files.length > 0"
                                     (click)="openCarouselBox('Submit Report', 'Are you sure you want to XXX?', report?.report_files)">
                                     Uploaded Photo
                                 </button>
+                                <button class="btn btn-danger" *ngIf="userID != null && userID == '1'"
+                                  (click)="deleteReport()">Delete</button>
                             </div>
                         </form>
 

@@ -29,6 +29,7 @@ export class LoginComponent {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('islogin', "1");
         localStorage.setItem('userName', response.data.user.name);
+        localStorage.setItem('userID', response.data.user.user_id);
         if (response.data.user.email_verified_at == null) {
           const queryParams: NavigationExtras = {
             queryParams: {
