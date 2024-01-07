@@ -19,26 +19,32 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     };
+    
 
     this.http.post<any>('http://127.0.0.1:8000/api/login', loginData).subscribe(
       (response) => {
-        console.log(response);
-        const accessToken = response.data.access_token;
+        if (response.code == 200) {
 
-        console.log(response.data.user.email_verified_at);
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('islogin', "1");
-        localStorage.setItem('userName', response.data.user.name);
-        localStorage.setItem('userID', response.data.user.user_id);
-        if (response.data.user.email_verified_at == null) {
-          const queryParams: NavigationExtras = {
-            queryParams: {
-              token: 0
-            }
-          };
-          this.router.navigate(['/email-verification'], queryParams);
+          console.log(response);
+          const accessToken = response.data.access_token;
+
+          console.log(response.data.user.email_verified_at);
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('islogin', "1");
+          localStorage.setItem('userName', response.data.user.name);
+          localStorage.setItem('userID', response.data.user.user_id);
+          if (response.data.user.email_verified_at == null) {
+            const queryParams: NavigationExtras = {
+              queryParams: {
+                token: 0
+              }
+            };
+            this.router.navigate(['/email-verification'], queryParams);
+          } else {
+            this.router.navigate(['/']);
+          }
         } else {
-          this.router.navigate(['/']);
+          alert(response.message);
         }
       },
       (error) => {
