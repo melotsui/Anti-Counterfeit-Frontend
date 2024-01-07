@@ -74,7 +74,7 @@
                                     Uploaded Photo
                                 </button>
                                 <button class="btn btn-danger" *ngIf="userID != null && userID == '1'"
-                                  (click)="deleteReport()">Delete</button>
+                                  (click)="openMsgBox('Delete Report','Are you sure you want to delete this report?')">Delete</button>
                             </div>
                         </form>
 

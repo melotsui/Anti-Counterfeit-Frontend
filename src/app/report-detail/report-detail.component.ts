@@ -56,39 +56,17 @@ export class ReportDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
-  deleteReport(): void {
-    const accessToken = localStorage.getItem('accessToken');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
-    });
-
-    console.log('report_id', this.report.report_id);
-    const report_id = this.report.report_id;
-    if (report_id > 0) {
-
-      this.http.delete<any>('http://127.0.0.1:8000/api/reports/' + report_id, { headers }).subscribe(
-        (response) => {
-          console.log(response);
-          if (response.code == 200) {
-            alert(response.message);
-          }  else if (response.code == 401) {
-            this.router.navigate(['/login']);
-          } else {
-            this.router.navigate(['/not-found']);
-          }
-        },
-        (error) => {
-          this.router.navigate(['/not-found']);
-          console.error('Login error', error);
-        }
-      );
-    } else {
-      this.router.navigate(['/not-found']);
+  
+  openMsgBox(title: string, description: string) {
+    console.log(this.report);
+    const obj = {
+      action: "delete_report",
+      formdata: this.report
     }
+    this.commonService.triggerOpenMsgBoxEvent(title, description, obj);
   }
+
+
 }
 
 

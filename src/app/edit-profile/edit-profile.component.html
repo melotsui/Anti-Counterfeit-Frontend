@@ -1,0 +1,44 @@
+<app-header></app-header>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Profile</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Profile</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body pt-3">
+
+                        <!-- Profile Edit Form -->
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                            <div class="row mb-3">
+                                <label for="fullName" class="col-md-2 col-lg-3 col-form-label">Name</label>
+                                <div class="col-md-10 col-lg-9">
+                                    <input name="fullName" type="text" class="form-control" id="fullName"
+                                        formControlName="name" />
+                                </div>
+                            </div>
+
+                            <div class="text-left">
+                                <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save
+                                    Changes</button>
+                            </div>
+                        </form><!-- End Profile Edit Form -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+    </section>
+
+</main>

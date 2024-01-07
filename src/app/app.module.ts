@@ -26,6 +26,7 @@ import { CarouselModalComponent } from './carousel-modal/carousel-modal.componen
 import { DdlCategoryComponent } from './shared/ddl-category/ddl-category.component';
 import { DdlDistrictComponent } from './shared/ddl-district/ddl-district.component';
 import { DdlSubDistrictComponent } from './shared/ddl-sub-district/ddl-sub-district.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DdlSubDistrictComponent } from './shared/ddl-sub-district/ddl-sub-distr
     CarouselModalComponent,
     DdlCategoryComponent,
     DdlDistrictComponent,
-    DdlSubDistrictComponent
+    DdlSubDistrictComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

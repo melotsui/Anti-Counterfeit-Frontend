@@ -10,6 +10,7 @@ import { ReportFormComponent } from './report-form/report-form.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'report-form', component: ReportFormComponent },
   { path: 'report-detail', component: ReportDetailComponent },
   { path: 'report-history', component: ReportHistoryComponent },
+  { path: 'edit-profile', component: EditProfileComponent },
   
   { path: '**', component: NotFoundComponent },
 ];

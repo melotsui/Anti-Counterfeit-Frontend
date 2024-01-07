@@ -18,44 +18,42 @@
                 </div>
 
                 <form class="row g-3 needs-validation" [formGroup]="registerForm"
-                  (ngSubmit)="registerUser(registerForm.value)">
+                  (ngSubmit)="registerUser(registerForm.value)" novalidate>
+
                   <div class="col-12">
-                    <label for="yourName" class="form-label">Your Name</label>
-                    <input type="text" formControlName="name" class="form-control" id="yourName">
-                    <div
-                      *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)"
-                      class="invalid-feedback">Please, enter your name!</div>
+                    <label for="yourName" class="form-label">Your Name <span class="text-danger">*</span></label>
+                    <input type="text" formControlName="name" class="form-control" id="yourName" required>
+                    <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)"
+                      class="invalid-feedback">Please enter your name!</div>
                   </div>
 
                   <div class="col-12">
-                    <label for="yourEmail" class="form-label">Your Email</label>
-                    <input type="email" formControlName="email" class="form-control" id="yourEmail">
-                    <div
-                      *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+                    <label for="yourEmail" class="form-label">Your Email <span class="text-danger">*</span></label>
+                    <input type="email" formControlName="email" class="form-control" id="yourEmail" required>
+                    <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
                       class="invalid-feedback">Please enter a valid email address!</div>
                   </div>
 
                   <div class="col-12">
-                    <label for="yourPassword" class="form-label">Password</label>
-                    <input type="password" formControlName="password" class="form-control" id="yourPassword">
-                    <div
-                      *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
+                    <label for="yourPassword" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" formControlName="password" class="form-control" id="yourPassword" required>
+                    <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)"
                       class="invalid-feedback">Please enter your password!</div>
                   </div>
 
                   <div class="col-12">
                     <div class="form-check">
-                      <input class="form-check-input" formControlName="terms" type="checkbox" id="acceptTerms">
+                      <input class="form-check-input" formControlName="terms" type="checkbox" id="acceptTerms" required>
                       <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and
-                          conditions</a></label>
-                      <div
-                        *ngIf="registerForm.get('terms')?.invalid && (registerForm.get('terms')?.dirty || registerForm.get('terms')?.touched)"
+                          conditions</a> <span class="text-danger">*</span></label>
+                      <div *ngIf="registerForm.get('terms')?.invalid && (registerForm.get('terms')?.dirty || registerForm.get('terms')?.touched)"
                         class="invalid-feedback">You must agree before submitting.</div>
                     </div>
                   </div>
 
                   <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                    <button class="btn btn-primary w-100" *ngIf="!isLoading" type="submit" [disabled]="registerForm.invalid">Create Account</button>
+                    <button class="btn btn-secondary w-100" *ngIf="isLoading" type="submit" [disabled]="registerForm.invalid">Loading...</button>
                   </div>
 
                   <div class="col-12">

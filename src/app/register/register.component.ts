@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {
     this.registerForm = new FormGroup({
@@ -38,16 +39,22 @@ export class RegisterComponent {
     };
 
     console.log('Registering user', requestBody)
-
+    this.isLoading = true;
     this.http.post(apiUrl, requestBody, { headers }).subscribe(
       (response: any) => {
         console.log('Registration successful', response);
         alert('Registration successful');
-        this.router.navigate(['/email-verification?token=0']);
+        const queryParams: NavigationExtras = {
+          queryParams: {
+            token: 0
+          }
+        };
+        this.router.navigate(['/email-verification'], queryParams);
 
       },
       (error) => {
         // Handle error
+        this.isLoading = false;
         console.error('Registration failed', error);
         // Additional error handling if needed
       }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonService } from '../@service/common.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router, RouteConfigLoadEnd, NavigationExtras } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-index',
@@ -16,6 +17,7 @@ export class IndexComponent implements OnInit {
   category_id: number = 0;
   district_id: number = 0;
   sub_district_id: number = 0;
+  datepipe: DatePipe = new DatePipe('en-US');
 
   constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private commonService: CommonService, private http: HttpClient) {
     this.route.queryParams.subscribe(params => {

@@ -29,7 +29,7 @@ export class MsgBoxComponent {
     if (this.data.obj.action == "create_report") {
       this.createReport(this.data.obj);
     } else if (this.data.obj.action == "delete_report"){
-
+      this.deleteReport(this.data.obj.formdata);
     }
   }
 
@@ -60,24 +60,34 @@ export class MsgBoxComponent {
       .subscribe(response => {
         if (response.code == 200) {
           var report_id = 0;
-          obj.images.forEach((image: File) => {
-            report_id = response.data.report.report_id;
-            this.uploadImage(image, report_id).subscribe(
-              (response) => {
-                console.log('Image upload successful:', response);
-                this.close();
-                const queryParams: NavigationExtras = {
-                  queryParams: {
-                    report_id: report_id
-                  }
-                };
-                this.router.navigate(['/report-detail'], queryParams);
-              },
-              (error) => {
-                console.error('Image upload failed:', error);
+          if(obj.images.length > 0)
+            obj.images.forEach((image: File) => {
+              report_id = response.data.report.report_id;
+              this.uploadImage(image, report_id).subscribe(
+                (response) => {
+                  console.log('Image upload successful:', response);
+                  this.close();
+                  const queryParams: NavigationExtras = {
+                    queryParams: {
+                      report_id: report_id
+                    }
+                  };
+                  this.router.navigate(['/report-detail'], queryParams);
+                },
+                (error) => {
+                  console.error('Image upload failed:', error);
+                }
+              );
+            });
+          else {
+            this.close();
+            const queryParams: NavigationExtras = {
+              queryParams: {
+                report_id: response.data.report.report_id
               }
-            );
-          });
+            };
+            this.router.navigate(['/report-detail'], queryParams);
+          }
         } else if (response.code == 401) {
           this.router.navigate(['/login']);
         } else {
@@ -91,5 +101,41 @@ export class MsgBoxComponent {
       });
     console.log(obj.images);
 
+  }
+  
+  deleteReport(report: any): void {
+    console.log(report);
+    const accessToken = localStorage.getItem('accessToken');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    });
+
+    console.log('report_id', report.report_id);
+    const report_id = report.report_id;
+    if (report_id > 0) {
+
+      this.httpClient.delete<any>('http://127.0.0.1:8000/api/reports/' + report_id, { headers }).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.code == 200) {
+            this.close();
+            alert('Delete Successfully');
+            this.router.navigate(['/']);
+          }  else if (response.code == 401) {
+            this.router.navigate(['/login']);
+          } else {
+            this.router.navigate(['/not-found']);
+          }
+        },
+        (error) => {
+          this.router.navigate(['/not-found']);
+          console.error('Login error', error);
+        }
+      );
+    } else {
+      this.router.navigate(['/not-found']);
+    }
   }
 }

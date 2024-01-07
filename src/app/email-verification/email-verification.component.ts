@@ -28,11 +28,11 @@ export class EmailVerificationComponent implements OnInit {
         this.http.post<any>('http://127.0.0.1:8000/api/users/verifyEmail', null, { headers }).subscribe(
           (response) => {
             console.log(response);
-            const accessToken = response.data.access_token;
+            // const accessToken = response.data.access_token;
             this.status = 'Success';
             this.done = true;
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('islogin', "1");
+            // localStorage.setItem('accessToken', accessToken);
+            // localStorage.setItem('islogin', "1");
           },
           (error) => {
             localStorage.setItem('islogin', "0");
@@ -41,7 +41,7 @@ export class EmailVerificationComponent implements OnInit {
           }
         );
       } else {
-        this.status = 'Please check your email for verification link.';
+        this.status = 'Please check your email.';
         this.done = false;
       }
     });

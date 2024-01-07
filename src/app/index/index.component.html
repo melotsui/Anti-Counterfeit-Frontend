@@ -93,6 +93,8 @@
                   <th scope="col">Category</th>
                   <th scope="col">District</th>
                   <th scope="col">Sub-district</th>
+                  <th scope="col">Reported DateTime</th>
+                  <th scope="col">Reported by</th>
                   <th scope="col" style="text-align: center;">Action</th>
                 </tr>
               </thead>
@@ -103,6 +105,8 @@
                   <td>{{ report.category_name }}</td>
                   <td>{{ report.district_name }}</td>
                   <td>{{ report.sub_district_name }}</td>
+                  <td>{{ datepipe.transform(report.created_at, 'yyyy-MM-dd HH:mm:ss') }}</td>
+                  <td>{{ report.name }}</td>
                   <td style="text-align: center;">
                     <a [routerLink]="['/report-detail']" [queryParams]="{ report_id: report.report_id }"><i
                         class="bi bi-eye-fill"></i></a>
