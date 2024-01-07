@@ -54,7 +54,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/']);
   }
   
   openMsgBox(title: string, description: string) {

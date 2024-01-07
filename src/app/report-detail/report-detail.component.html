@@ -67,6 +67,7 @@
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
                                 <textarea class="form-control" style="height: 100px" disabled [value]="report?.description"></textarea>
                             </div>
+                            <div class="col-md-12 text-right">Reported by {{report?.name}}</div>
                             <div class="col-md-6 text-left">
                                 <button class="btn btn-secondary" style="margin-right: 10px;" (click)="goBack()">Back</button>
                                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;" *ngIf="report?.report_files.length > 0"
