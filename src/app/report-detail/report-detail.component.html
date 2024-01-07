@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-md-12 text-right">Reported by {{report?.name}}</div>
                             <div class="col-md-6 text-left">
-                                <button class="btn btn-secondary" style="margin-right: 10px;" (click)="goBack()">Back</button>
+                                <button class="btn btn-secondary" style="margin-right: 10px;" (click)="goBack()">Back to home page</button>
                                 <button type="submit" class="btn btn-primary" style="margin-right: 10px;" *ngIf="report?.report_files.length > 0"
                                     (click)="openCarouselBox('Submit Report', 'Are you sure you want to XXX?', report?.report_files)">
                                     Uploaded Photo
